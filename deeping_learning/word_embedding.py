@@ -12,8 +12,8 @@ embedding_dim = 20
 src_sen_len = torch.randint(1, max_len, (batch_shape, ))
 tgt_sen_len = torch.randint(1, max_len, (batch_shape, )) 
 
-src_sen = [F.pad(torch.randint(1, dic_len, (L, )), (0, max_len-L)) for L in src_sen_len]
-tgt_sen = [F.pad(torch.randint(1, dic_len, (L, )), (0, max_len-L)) for L in tgt_sen_len]
+src_sen = [F.pad(torch.randint(1, dic_len, (L, )), (0, max(src_sen_len)-L)) for L in src_sen_len]
+tgt_sen = [F.pad(torch.randint(1, dic_len, (L, )), (0, max(tgt_sen_len)-L)) for L in tgt_sen_len]
 src_sen = torch.stack(src_sen)
 tgt_sen = torch.stack(tgt_sen)
 
@@ -38,4 +38,7 @@ src_pos = pos_embedding(torch.stack([torch.arange(max(src_sen_len)) for _ in src
 tgt_pos = pos_embedding(torch.stack([torch.arange(max(tgt_sen_len)) for _ in src_sen_len], dim=0))
 print(src_sen_len)
 print(src_pos.shape)
+
+# encoder 中的 self_attention_mask
+
 
